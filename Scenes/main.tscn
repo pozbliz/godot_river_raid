@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://qs0n1lulsa74"]
+
+[ext_resource type="Script" uid="uid://cy34bdlnuwlcb" path="res://Scripts/main.gd" id="1_jjgbg"]
+[ext_resource type="PackedScene" uid="uid://b7ygitknndc5t" path="res://Scenes/player.tscn" id="2_bo1nx"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_jjgbg")
+
+[node name="Player" parent="." instance=ExtResource("2_bo1nx")]
+
+[node name="WorldRoot" type="Node2D" parent="."]
+
+[node name="PlayerStartPosition" type="Marker2D" parent="."]
+position = Vector2(200, 300)
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
