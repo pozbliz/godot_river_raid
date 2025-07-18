@@ -14,3 +14,6 @@ projectile_scene = ExtResource("2_cvnsp")
 [node name="ColorRect" type="ColorRect" parent="."]
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="FuelTimer" type="Timer" parent="."]
+wait_time = 2.0

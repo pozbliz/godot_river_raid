@@ -1,0 +1,36 @@
+[gd_scene load_steps=4 format=3 uid="uid://ds2ib2k5xxgx8"]
+
+[ext_resource type="Script" uid="uid://dpth5xxjqchue" path="res://Scripts/hud.gd" id="1_e0onf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e0onf"]
+bg_color = Color(0.265257, 0.0229181, 0.0722179, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fccik"]
+bg_color = Color(0.723629, 0.159178, 0.150378, 1)
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_e0onf")
+
+[node name="FuelText" type="Label" parent="."]
+offset_left = 300.0
+offset_right = 350.0
+offset_bottom = 23.0
+text = "Fuel"
+
+[node name="FuelBar" type="ProgressBar" parent="."]
+anchors_preset = -1
+offset_left = 350.0
+offset_right = 650.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_e0onf")
+theme_override_styles/fill = SubResource("StyleBoxFlat_fccik")
+step = 1.0
+value = 100.0
+
+[node name="Message" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="MessageTimer" type="Timer" parent="."]
+wait_time = 2.0

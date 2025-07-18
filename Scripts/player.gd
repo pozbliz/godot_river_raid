@@ -7,6 +7,8 @@ extends CharacterBody2D
 
 const SPEED: float = 300.0
 const SHOT_COOLDOWN: float = 0.3
+const MAX_FUEL: float = 100.0
+const FUEL_CONSUMPTION: float = 10
 
 var input_map = {
 	"move_left": Vector2.LEFT,
@@ -15,17 +17,23 @@ var input_map = {
 	"move_down": Vector2.DOWN
 }
 var time_since_last_shot = 0.0
+var current_fuel: float
+
+signal fuel_changed
 
 
 func _ready():
-	pass
+	$FuelTimer.timeout.connect(on_fuel_timer_timeout)
+	$FuelTimer.start()
 
 func _process(delta):
+	# Moving
 	var direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	velocity = direction * SPEED
 	position += velocity * delta
 	position = position.clamp(Vector2.ZERO, screen_size - $ColorRect.size)  # replace with sprite size
 	
+	# Shooting
 	time_since_last_shot += delta
 	if Input.is_action_just_pressed("shoot") and time_since_last_shot >= SHOT_COOLDOWN:
 		shoot()
@@ -36,5 +44,17 @@ func shoot():
 	owner.add_child(shot)
 	shot.position = position
 	
-func reposition(pos: Vector2):
+func on_fuel_timer_timeout():
+	current_fuel -= FUEL_CONSUMPTION
+	fuel_changed.emit(current_fuel)
+	
+func refuel(amount: float):
+	current_fuel += amount
+	if current_fuel > MAX_FUEL:
+		current_fuel = MAX_FUEL
+	fuel_changed.emit(current_fuel)
+	
+func reset_position(pos: Vector2):
 	position = pos
+	current_fuel = MAX_FUEL
+	$FuelTimer.start()

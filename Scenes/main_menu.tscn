@@ -1,0 +1,59 @@
+[gd_scene load_steps=4 format=3 uid="uid://hx3uj7in4g4t"]
+
+[ext_resource type="Script" uid="uid://4sj4fehdmbr8" path="res://Scripts/main_menu.gd" id="1_06t4h"]
+
+[sub_resource type="InputEventAction" id="InputEventAction_06t4h"]
+action = &"start_game"
+
+[sub_resource type="Shortcut" id="Shortcut_7vrkn"]
+events = [SubResource("InputEventAction_06t4h")]
+
+[node name="MainMenu" type="CanvasLayer"]
+script = ExtResource("1_06t4h")
+
+[node name="Background" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.351563, 0.351563, 0.351563, 1)
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 10
+anchor_right = 1.0
+offset_right = -500.0
+offset_bottom = 23.0
+grow_horizontal = 2
+scale = Vector2(2, 2)
+text = "River Raid"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -64.0
+offset_right = 100.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="StartGameButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+shortcut = SubResource("Shortcut_7vrkn")
+text = "Start Game"
+
+[node name="OptionsButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Options"
+
+[node name="ExitGameButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Exit Game"
