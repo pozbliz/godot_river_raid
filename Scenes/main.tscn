@@ -22,6 +22,37 @@ position = Vector2(200, 300)
 
 [node name="HUD" parent="." instance=ExtResource("3_8gbba")]
 
+[node name="PauseMenu" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="PauseMenu"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.168627, 0.168627, 0.168627, 0.505882)
+
+[node name="MarginContainer" type="MarginContainer" parent="PauseMenu"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PauseMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="PauseText" type="Label" parent="PauseMenu/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "PAUSED"
+
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
 [node name="FuelSpawnTimer" type="Timer" parent="."]

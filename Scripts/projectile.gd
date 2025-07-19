@@ -14,6 +14,8 @@ func _ready() -> void:
 	add_to_group("projectile")
 
 func _process(delta):
+	if get_tree().paused:
+		return
 	position += direction * speed * delta
 	
 func _on_projectile_body_entered(body):

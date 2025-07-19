@@ -44,7 +44,7 @@ func shoot():
 	var shot = projectile_scene.instantiate()
 	owner.add_child(shot)
 	shot.position = position
-	
+		
 func on_fuel_timer_timeout():
 	current_fuel -= FUEL_CONSUMPTION
 	fuel_changed.emit(current_fuel)

@@ -21,4 +21,4 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="FuelTimer" type="Timer" parent="."]
-wait_time = 1.5
+wait_time = 2.0
