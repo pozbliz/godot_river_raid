@@ -1,11 +1,11 @@
 extends Area2D
 
 
-@export var speed = 400
+@export var speed: int = 400
 @export var damage: int = 1
 @export var cooldown: float = 0.3
-var velocity := Vector2.ZERO
-var direction := Vector2.RIGHT
+var velocity: Vector2 = Vector2.ZERO
+var direction: Vector2 = Vector2.RIGHT
 
 signal enemy_hit
 

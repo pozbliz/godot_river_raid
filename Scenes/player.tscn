@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://b7ygitknndc5t"]
+[gd_scene load_steps=4 format=3 uid="uid://b7ygitknndc5t"]
 
 [ext_resource type="Script" uid="uid://c6duqj18lm4ms" path="res://Scripts/player.gd" id="1_v0iea"]
 [ext_resource type="PackedScene" uid="uid://cfdcww404ayaf" path="res://Scenes/projectile.tscn" id="2_cvnsp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cvnsp"]
+size = Vector2(40, 40)
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_v0iea")
@@ -10,10 +13,12 @@ projectile_scene = ExtResource("2_cvnsp")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(20, 20)
+shape = SubResource("RectangleShape2D_cvnsp")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="FuelTimer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 1.5

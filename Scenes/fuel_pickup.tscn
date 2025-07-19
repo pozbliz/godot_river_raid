@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://d2ws4kt4pengq"]
+
+[ext_resource type="Script" uid="uid://jqmi3kvfgh2a" path="res://Scenes/fuel_pickup.gd" id="1_bwmmu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hj3l7"]
+size = Vector2(40, 40)
+
+[node name="FuelPickup" type="Area2D"]
+script = ExtResource("1_bwmmu")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_hj3l7")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.0498414, 0.518316, 0.500085, 1)

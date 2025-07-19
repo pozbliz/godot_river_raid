@@ -1,14 +1,15 @@
 extends CharacterBody2D
+class_name Player
 
 
 @export var projectile_scene: PackedScene
 @onready var direction: Vector2 = Vector2.ZERO
 @onready var screen_size = get_viewport_rect().size
 
-const SPEED: float = 300.0
+const SPEED: int = 300
 const SHOT_COOLDOWN: float = 0.3
-const MAX_FUEL: float = 100.0
-const FUEL_CONSUMPTION: float = 10
+const MAX_FUEL: int = 100
+const FUEL_CONSUMPTION: int = 5
 
 var input_map = {
 	"move_left": Vector2.LEFT,
@@ -16,8 +17,8 @@ var input_map = {
 	"move_up": Vector2.UP,
 	"move_down": Vector2.DOWN
 }
-var time_since_last_shot = 0.0
-var current_fuel: float
+var time_since_last_shot: float = 0.0
+var current_fuel: int
 
 signal fuel_changed
 
@@ -48,10 +49,10 @@ func on_fuel_timer_timeout():
 	current_fuel -= FUEL_CONSUMPTION
 	fuel_changed.emit(current_fuel)
 	
-func refuel(amount: float):
+func refuel(amount: int):
+	print("refueling)")
 	current_fuel += amount
-	if current_fuel > MAX_FUEL:
-		current_fuel = MAX_FUEL
+	current_fuel = clamp(current_fuel, 0, MAX_FUEL)
 	fuel_changed.emit(current_fuel)
 	
 func reset_position(pos: Vector2):
