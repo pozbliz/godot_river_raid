@@ -50,7 +50,6 @@ func on_fuel_timer_timeout():
 	fuel_changed.emit(current_fuel)
 	
 func refuel(amount: int):
-	print("refueling)")
 	current_fuel += amount
 	current_fuel = clamp(current_fuel, 0, MAX_FUEL)
 	fuel_changed.emit(current_fuel)

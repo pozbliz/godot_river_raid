@@ -1,0 +1,92 @@
+[gd_scene load_steps=14 format=3 uid="uid://bs7khs0hu60ud"]
+
+[ext_resource type="Script" uid="uid://ctwc5jcibdaso" path="res://Scripts/enemy.gd" id="1_41bhc"]
+[ext_resource type="Texture2D" uid="uid://cmtcc7m5kuyby" path="res://Art/VFX/death_effect.png" id="2_41bhc"]
+[ext_resource type="PackedScene" uid="uid://bova76rpd6n0m" path="res://Components/health_component.tscn" id="3_07yvg"]
+[ext_resource type="PackedScene" uid="uid://8h713dbxq70w" path="res://Components/hitbox_component.tscn" id="4_h0ait"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_62u1u"]
+atlas = ExtResource("2_41bhc")
+region = Rect2(0, 0, 64, 58)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_07yvg"]
+atlas = ExtResource("2_41bhc")
+region = Rect2(64, 0, 64, 58)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h0ait"]
+atlas = ExtResource("2_41bhc")
+region = Rect2(128, 0, 64, 58)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p5u2e"]
+atlas = ExtResource("2_41bhc")
+region = Rect2(192, 0, 64, 58)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k526e"]
+atlas = ExtResource("2_41bhc")
+region = Rect2(256, 0, 64, 58)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bepdh"]
+atlas = ExtResource("2_41bhc")
+region = Rect2(320, 0, 64, 58)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7qf0f"]
+atlas = ExtResource("2_41bhc")
+region = Rect2(384, 0, 64, 58)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s4l26"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_62u1u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_07yvg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h0ait")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p5u2e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k526e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bepdh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7qf0f")
+}],
+"loop": true,
+"name": &"death",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_41bhc"]
+size = Vector2(40, 40)
+
+[node name="Ship" type="Area2D"]
+script = ExtResource("1_41bhc")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_s4l26")
+animation = &"death"
+
+[node name="HealthComponent" parent="." instance=ExtResource("3_07yvg")]
+MAX_HEALTH = 1.0
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_h0ait")]
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("RectangleShape2D_41bhc")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.581095, 0.330387, 0.0449065, 1)

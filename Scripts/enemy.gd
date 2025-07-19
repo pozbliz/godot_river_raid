@@ -1,7 +1,6 @@
 extends Area2D
+class_name Enemy
 
-
-@export var projectile_scene: PackedScene
 
 func _ready() -> void:
 	pass
@@ -9,7 +8,9 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-func shoot():
-	var shot = projectile_scene.instantiate()
-	owner.add_child(shot)
-	shot.position = position
+func play_death_animation():
+	$HitboxComponent/CollisionShape2D.disabled = true
+	set_deferred("monitoring", false)
+	$AnimatedSprite2D.play("death")
+	await $AnimatedSprite2D.animation_finished
+	queue_free()
