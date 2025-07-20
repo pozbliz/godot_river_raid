@@ -91,3 +91,4 @@ offset_bottom = 40.0
 color = Color(0.77918, 0.311717, 0.582081, 1)
 
 [node name="ShootComponent" parent="." instance=ExtResource("5_f02y0")]
+autoshoot = true

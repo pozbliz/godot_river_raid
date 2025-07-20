@@ -4,6 +4,10 @@ extends Area2D
 @export var projectile_scene: PackedScene
 @export var damage: int = 1
 @export var shoot_interval: float = 1.5
+@export var projectile_speed: float = 300
+@export var projectile_direction: Vector2 = Vector2.LEFT
+@export var projectile_texture: Texture
+@export var autoshoot: bool = false
 
 var shoot_timer: Timer
 
@@ -20,12 +24,15 @@ func shoot():
 	if projectile_scene == null:
 		return
 	var shot = projectile_scene.instantiate()
-	owner.add_child(shot)
-	shot.position = position
+	
+	shot.speed = projectile_speed
+	shot.damage = damage
+	shot.direction = projectile_direction
+	shot.sprite_texture = projectile_texture
+	
+	GameGlobals.projectile_parent.add_child(shot)
+	shot.global_position = global_position
 
 func _on_shoot_timer_timeout():
-	shoot()
-
-	var projectile = projectile_scene.instantiate()
-	owner.add_child(projectile)
-	projectile.global_position = get_parent().global_position
+	if autoshoot:
+		shoot()

@@ -28,6 +28,7 @@ var enemy_spawn_locations = {
 
 
 func _ready() -> void:
+	GameGlobals.projectile_parent = $ProjectileRoot
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	$PauseMenu.process_mode = Node.PROCESS_MODE_ALWAYS
 	
@@ -38,7 +39,7 @@ func _ready() -> void:
 	
 	screen_size = get_viewport().size
 	
-	var enemy_scenes = {
+	enemy_scenes = {
 		"ship": enemy_ship_scene,
 		"helicopter": enemy_helicopter_scene,
 		"jet": enemy_jet_scene,

@@ -15,6 +15,10 @@ run/main_scene="uid://hx3uj7in4g4t"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GameGlobals="*res://Scripts/game_globals.gd"
+
 [display]
 
 window/size/viewport_width=1000

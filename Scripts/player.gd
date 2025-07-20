@@ -41,9 +41,7 @@ func _process(delta):
 		time_since_last_shot = 0.0
 	
 func shoot():
-	var shot = projectile_scene.instantiate()
-	owner.add_child(shot)
-	shot.position = position
+	$ShootComponent.shoot()
 		
 func on_fuel_timer_timeout():
 	current_fuel -= FUEL_CONSUMPTION
@@ -58,3 +56,6 @@ func reset_position(pos: Vector2):
 	position = pos
 	current_fuel = MAX_FUEL
 	$FuelTimer.start()
+	
+func play_death_animation():
+	pass

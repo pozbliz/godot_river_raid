@@ -1,9 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://b7ygitknndc5t"]
+[gd_scene load_steps=7 format=3 uid="uid://b7ygitknndc5t"]
 
 [ext_resource type="Script" uid="uid://c6duqj18lm4ms" path="res://Scripts/player.gd" id="1_v0iea"]
 [ext_resource type="PackedScene" uid="uid://cfdcww404ayaf" path="res://Scenes/projectile.tscn" id="2_cvnsp"]
+[ext_resource type="PackedScene" uid="uid://bova76rpd6n0m" path="res://Components/health_component.tscn" id="3_vgqql"]
+[ext_resource type="PackedScene" uid="uid://8h713dbxq70w" path="res://Components/hitbox_component.tscn" id="4_fkybt"]
+[ext_resource type="PackedScene" uid="uid://bik7dj8v8l7nm" path="res://Components/shoot_component.tscn" id="5_fkybt"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_cvnsp"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x3wgy"]
 size = Vector2(40, 40)
 
 [node name="Player" type="CharacterBody2D"]
@@ -12,13 +15,21 @@ projectile_scene = ExtResource("2_cvnsp")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(20, 20)
-shape = SubResource("RectangleShape2D_cvnsp")
-
 [node name="ColorRect" type="ColorRect" parent="."]
 offset_right = 40.0
 offset_bottom = 40.0
 
+[node name="HealthComponent" parent="." instance=ExtResource("3_vgqql")]
+MAX_HEALTH = 1.0
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_fkybt")]
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("RectangleShape2D_x3wgy")
+
 [node name="FuelTimer" type="Timer" parent="."]
 wait_time = 2.0
+
+[node name="ShootComponent" parent="." instance=ExtResource("5_fkybt")]
+projectile_direction = Vector2(1, 0)

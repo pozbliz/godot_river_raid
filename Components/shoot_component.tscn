@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://bik7dj8v8l7nm"]
+[gd_scene load_steps=3 format=3 uid="uid://bik7dj8v8l7nm"]
 
 [ext_resource type="Script" uid="uid://gwm6ya8l0h5w" path="res://Components/shoot_component.gd" id="1_feh76"]
+[ext_resource type="PackedScene" uid="uid://cfdcww404ayaf" path="res://Scenes/projectile.tscn" id="2_o8dmn"]
 
 [node name="ShootComponent" type="Area2D"]
 script = ExtResource("1_feh76")
+projectile_scene = ExtResource("2_o8dmn")
