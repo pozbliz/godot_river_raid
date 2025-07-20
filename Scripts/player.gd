@@ -3,6 +3,7 @@ class_name Player
 
 
 @export var projectile_scene: PackedScene
+
 @onready var direction: Vector2 = Vector2.ZERO
 @onready var screen_size = get_viewport_rect().size
 
