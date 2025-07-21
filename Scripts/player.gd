@@ -22,18 +22,20 @@ var time_since_last_shot: float = 0.0
 var current_fuel: int
 
 signal fuel_changed
+signal player_died
 
 
 func _ready():
 	$FuelTimer.timeout.connect(on_fuel_timer_timeout)
 	$FuelTimer.start()
+	add_to_group("player")
 
 func _process(delta):
 	# Moving
 	var direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	velocity = direction * SPEED
 	position += velocity * delta
-	position = position.clamp(Vector2.ZERO, screen_size - $ColorRect.size)  # replace with sprite size
+	position = position.clamp(Vector2.ZERO, screen_size - Vector2(20, 20))
 	
 	# Shooting
 	time_since_last_shot += delta
@@ -55,8 +57,12 @@ func refuel(amount: int):
 	
 func reset_position(pos: Vector2):
 	position = pos
+	$AnimatedSprite2D.play("default")
 	current_fuel = MAX_FUEL
 	$FuelTimer.start()
 	
 func play_death_animation():
-	pass
+	$AnimatedSprite2D.scale = Vector2(2.0, 2.0)
+	$AnimatedSprite2D.play("death")
+	await $AnimatedSprite2D.animation_finished
+	player_died.emit()

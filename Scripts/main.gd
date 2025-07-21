@@ -8,6 +8,8 @@ extends Node
 @export var enemy_jet_scene: PackedScene
 @export var enemy_bridge_scene: PackedScene
 
+@onready var segment_scene = preload("res://Scenes/river_segment.tscn")
+
 var is_paused: bool = false
 var screen_size
 var enemy_scenes = {}
@@ -25,6 +27,12 @@ var enemy_spawn_locations = {
 		"bridge": func() -> Vector2:
 			return Vector2(screen_size.x + 100, screen_size.y / 2),
 	}
+var last_end_points: Array
+var last_end_top: Vector2
+var last_end_bottom: Vector2
+var segments: Array = []
+var segment_count: int = 0
+var died = false
 
 
 func _ready() -> void:
@@ -47,6 +55,7 @@ func _ready() -> void:
 	}
 	$SpawnScheduleManager.start()
 	$SpawnScheduleManager.spawn_requested.connect(_on_spawn_schedule_manager_spawn_requested)
+	$Player.player_died.connect(_on_player_died)
 	
 	new_game()
 
@@ -60,14 +69,26 @@ func toggle_pause():
 	$PauseMenu.visible = is_paused
 
 func _process(delta: float) -> void:
-	pass
+	if len(segments) < 5:
+		generate_segments()
+	else:
+		delete_segment()
 	
 func new_game():
+	var segment = create_segment()
+	last_end_points = segment.create_first_segment()
+	segment.global_position = Vector2.ZERO
+	last_end_top = last_end_points[0]
+	last_end_bottom = last_end_points[1]
 	$Player.reset_position($PlayerStartPosition.position)
 	$Player.show()
 	$HUD.show()
+	died = false
 	
-func game_over():
+func _on_player_died():
+	if died:
+		return
+	died = true
 	get_tree().change_scene_to_packed(main_menu_scene)
 	
 func spawn_fuel_pickup():
@@ -79,12 +100,11 @@ func spawn_fuel_pickup():
 	fuel_pickup.collected.connect(_on_fuel_pickup_collected)
 	
 func spawn_enemy(type: String):
-	print("spawn enemy type:", type)
 	var enemy = enemy_scenes[type].instantiate()
 	$WorldRoot.add_child(enemy)
 	enemy.add_to_group("enemies")
-	enemy.position = get_enemy_spawn_location(type)
-	print("spawning enemy of type %s at position %s" % [type, enemy.position])
+	var global_pos = get_enemy_spawn_location(type)
+	enemy.position = $WorldRoot.to_local(global_pos)
 	
 func get_enemy_spawn_location(type: String) -> Vector2:
 	if enemy_spawn_locations.has(type):
@@ -99,11 +119,46 @@ func _on_fuel_changed(fuel: int):
 	$HUD.update_fuel(fuel)
 	
 func _on_spawn_schedule_manager_spawn_requested(type: String):
-	print("spawn requested: ", type)
+	#print("spawn requested: ", type)
 	if enemy_scenes.has(type):
 		spawn_enemy(type)
 	elif type == "fuel":
 		spawn_fuel_pickup()
 	else:
-		print("type not found")
-		print(enemy_scenes)
+		#print("type not found")
+		#print(enemy_scenes)
+		pass
+		
+func generate_segments():
+	var new_segment = create_segment()
+	new_segment.global_position = Vector2(screen_size.x, 0)
+	var new_top = new_segment.generate_new_top_endpoint(last_end_top)
+	var new_bottom = new_segment.generate_new_bottom_endpoint(last_end_bottom)
+
+	new_segment.create_top_bank(last_end_top, new_top)
+	new_segment.create_bottom_bank(last_end_bottom, new_bottom)
+	new_segment.create_river(last_end_top, new_top, last_end_bottom, new_bottom)
+
+	#print("last_end_top: ", last_end_top)
+	#print("last_end_bottom: ", last_end_bottom)
+	#print("new_top: ", new_top)
+	#print("new_bottom: ", new_bottom)
+
+	last_end_top = new_top
+	last_end_bottom = new_bottom
+	
+func create_segment():
+	var segment = segment_scene.instantiate()
+	$WorldRoot.add_child(segment)
+	segment_count += 1
+	segments.append([segment, segment_count])
+	#print("created segment: ", segment_count)
+	return segment
+	
+func delete_segment():
+	var segment_node = segments[0][0]
+	var segment_index = segments[0][1]
+	if segment_node.global_position.x < segment_index * -screen_size.x:
+		var segment_to_delete = segments.pop_front()
+		segment_to_delete[0].queue_free()
+		#print("deleted segment: ", segment_index)

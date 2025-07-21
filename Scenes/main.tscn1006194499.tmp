@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://qs0n1lulsa74"]
+[gd_scene load_steps=13 format=3 uid="uid://qs0n1lulsa74"]
 
 [ext_resource type="Script" uid="uid://cy34bdlnuwlcb" path="res://Scripts/main.gd" id="1_jjgbg"]
 [ext_resource type="PackedScene" uid="uid://b7ygitknndc5t" path="res://Scenes/player.tscn" id="2_bo1nx"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://od717jc8sgsl" path="res://Scenes/Enemies/helicopter.tscn" id="5_hptm8"]
 [ext_resource type="PackedScene" uid="uid://dq8de701agfi7" path="res://Scenes/Enemies/jet.tscn" id="6_d1ilt"]
 [ext_resource type="PackedScene" uid="uid://cfimv42a3gul4" path="res://Scenes/Enemies/bridge.tscn" id="7_d1ilt"]
+[ext_resource type="PackedScene" uid="uid://cxoiqiq8c542b" path="res://Scenes/river_segment.tscn" id="10_6iyac"]
 [ext_resource type="Script" uid="uid://b23ew75hirg1i" path="res://Scripts/spawn_schedule_manager.gd" id="10_hptm8"]
 
 [node name="Main" type="Node"]
@@ -23,6 +24,8 @@ enemy_bridge_scene = ExtResource("7_d1ilt")
 
 [node name="WorldRoot" type="Node2D" parent="."]
 script = ExtResource("3_jjvhh")
+
+[node name="RiverSegment" parent="WorldRoot" instance=ExtResource("10_6iyac")]
 
 [node name="Player" parent="." instance=ExtResource("2_bo1nx")]
 
