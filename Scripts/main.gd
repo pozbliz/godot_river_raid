@@ -21,7 +21,7 @@ var enemy_spawn_locations = {
 			return Vector2(screen_size.x + 100, randf_range(50, screen_size.y - 50)),
 
 		"jet": func() -> Vector2:
-			var y = -50 if randf() < 0.5 else screen_size.y + 50
+			var y = screen_size.y + 50
 			return Vector2(screen_size.x / 2, y),
 
 		"bridge": func() -> Vector2:
@@ -102,7 +102,7 @@ func spawn_fuel_pickup():
 func spawn_enemy(type: String):
 	var enemy = enemy_scenes[type].instantiate()
 	$WorldRoot.add_child(enemy)
-	enemy.add_to_group("enemies")
+	enemy.add_to_group("enemy")
 	var global_pos = get_enemy_spawn_location(type)
 	enemy.position = $WorldRoot.to_local(global_pos)
 	

@@ -20,6 +20,7 @@ var input_map = {
 }
 var time_since_last_shot: float = 0.0
 var current_fuel: int
+var dead: bool = false
 
 signal fuel_changed
 signal player_died
@@ -31,6 +32,9 @@ func _ready():
 	add_to_group("player")
 
 func _process(delta):
+	if dead:
+		velocity = Vector2.ZERO
+		return
 	# Moving
 	var direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	velocity = direction * SPEED
@@ -62,6 +66,7 @@ func reset_position(pos: Vector2):
 	$FuelTimer.start()
 	
 func play_death_animation():
+	dead = true
 	$AnimatedSprite2D.scale = Vector2(2.0, 2.0)
 	$AnimatedSprite2D.play("death")
 	await $AnimatedSprite2D.animation_finished

@@ -1,10 +1,11 @@
-[gd_scene load_steps=17 format=3 uid="uid://dq8de701agfi7"]
+[gd_scene load_steps=18 format=3 uid="uid://dq8de701agfi7"]
 
 [ext_resource type="PackedScene" uid="uid://bova76rpd6n0m" path="res://Components/health_component.tscn" id="1_1m0k8"]
 [ext_resource type="Script" uid="uid://ctwc5jcibdaso" path="res://Scripts/enemy.gd" id="1_rcpvd"]
 [ext_resource type="Texture2D" uid="uid://dn0lhea6n2p8x" path="res://Art/VFX/spritesheet.png" id="2_7c2x6"]
 [ext_resource type="PackedScene" uid="uid://8h713dbxq70w" path="res://Components/hitbox_component.tscn" id="2_rcpvd"]
 [ext_resource type="Texture2D" uid="uid://bl7xe3k5qup8o" path="res://Art/pixel-art vehicles/jet/plane_3_red.png" id="3_7c2x6"]
+[ext_resource type="PackedScene" uid="uid://2exek18gs7uy" path="res://Components/movement_component.tscn" id="6_bymrf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bymrf"]
 atlas = ExtResource("2_7c2x6")
@@ -109,3 +110,6 @@ health_component = NodePath("../HealthComponent")
 position = Vector2(-1, -0.5)
 rotation = 1.5708
 shape = SubResource("RectangleShape2D_qxglb")
+
+[node name="MovementComponent" parent="." instance=ExtResource("6_bymrf")]
+direction = Vector2(0, -1)

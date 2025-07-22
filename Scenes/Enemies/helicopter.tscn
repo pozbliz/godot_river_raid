@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://od717jc8sgsl"]
+[gd_scene load_steps=21 format=3 uid="uid://od717jc8sgsl"]
 
 [ext_resource type="Script" uid="uid://ctwc5jcibdaso" path="res://Scripts/enemy.gd" id="1_3hnk3"]
 [ext_resource type="PackedScene" uid="uid://bova76rpd6n0m" path="res://Components/health_component.tscn" id="1_w0el2"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://cvrqrvghjihcm" path="res://Art/pixel-art vehicles/helicopter/blue_helicopter_2.png" id="4_gyqcg"]
 [ext_resource type="PackedScene" uid="uid://bik7dj8v8l7nm" path="res://Components/shoot_component.tscn" id="5_f02y0"]
 [ext_resource type="Texture2D" uid="uid://jcttbbmjktr0" path="res://Art/projectiles/torpedo_black.png" id="8_bw6a6"]
+[ext_resource type="PackedScene" uid="uid://2exek18gs7uy" path="res://Components/movement_component.tscn" id="9_gyqcg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6eynf"]
 atlas = ExtResource("2_qnt1b")
@@ -113,8 +114,12 @@ shape = SubResource("RectangleShape2D_w0el2")
 [node name="ShootComponent" parent="." instance=ExtResource("5_f02y0")]
 rotation = 3.14159
 scale = Vector2(0.5, 0.5)
-projectile_speed = 600.0
+shoot_interval = 1.0
+projectile_speed = 800.0
 projectile_texture = ExtResource("8_bw6a6")
 projectile_scale = Vector2(0.1, 0.1)
 projectile_collision_size = Vector2(30, 15)
 autoshoot = true
+
+[node name="MovementComponent" parent="." instance=ExtResource("9_gyqcg")]
+direction = Vector2(-1, 0)
