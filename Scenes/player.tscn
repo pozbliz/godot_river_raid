@@ -80,6 +80,7 @@ size = Vector2(63, 40)
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_v0iea")
 projectile_scene = ExtResource("2_cvnsp")
+metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.075, 0.075)

@@ -64,7 +64,5 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "PAUSED"
 
-[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
-
 [node name="SpawnScheduleManager" type="Node" parent="."]
 script = ExtResource("10_hptm8")

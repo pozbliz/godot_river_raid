@@ -7,7 +7,13 @@ func _ready() -> void:
 		$AnimatedSprite2D.play("default")
 
 func _process(delta: float) -> void:
-	pass
+	var screen_rect = get_viewport().get_visible_rect()
+	if global_position.x < screen_rect.position.x - 100:
+		queue_free()
+		print("removing from horizontal")
+	if position.y < -100 or position.y > get_viewport().size.y + 100:
+		queue_free()
+		print("removing from vertical")
 
 func play_death_animation():
 	$AnimatedSprite2D.play("death")

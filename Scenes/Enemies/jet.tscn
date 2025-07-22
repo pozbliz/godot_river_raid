@@ -91,6 +91,7 @@ size = Vector2(71, 42)
 
 [node name="Jet" type="Area2D"]
 script = ExtResource("1_rcpvd")
+metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 rotation = -1.5708

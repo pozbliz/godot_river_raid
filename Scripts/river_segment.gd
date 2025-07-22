@@ -31,7 +31,7 @@ func create_first_segment():
 	
 	return [end_point_top, end_point_bottom]
 	
-func create_top_bank(start_point: Vector2, end_point: Vector2):
+func create_top_bank(start_point: Vector2, end_point: Vector2) -> void:
 	var top_bank = Polygon2D.new()
 	
 	# Create polygon points: river edge + screen edges
@@ -46,6 +46,18 @@ func create_top_bank(start_point: Vector2, end_point: Vector2):
 	add_child(top_bank) 
 	
 	#print("top points: ", points)
+	
+	_create_top_collision(points)
+	
+func _create_top_collision(points: PackedVector2Array) -> void:
+	# Add collision for top bank
+	var area = Area2D.new()
+	var collision = CollisionPolygon2D.new()
+	
+	collision.polygon = points
+	area.add_child(collision)
+	area.add_to_group("hazard")
+	add_child(area)
 	
 func create_bottom_bank(start_point: Vector2, end_point: Vector2):
 	var bottom_bank = Polygon2D.new()
@@ -62,6 +74,18 @@ func create_bottom_bank(start_point: Vector2, end_point: Vector2):
 	add_child(bottom_bank)
 	
 	#print("bottom points: ", points)
+	
+	_create_bottom_collision(points)
+	
+func _create_bottom_collision(points: PackedVector2Array) -> void:
+	# Add collision for bottom bank
+	var area = Area2D.new()
+	var collision = CollisionPolygon2D.new()
+	
+	collision.polygon = points
+	area.add_child(collision)
+	area.add_to_group("hazard")
+	add_child(area)
 	
 func create_river(
 		start_point_top: Vector2, 

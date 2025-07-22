@@ -91,6 +91,7 @@ size = Vector2(40, 40)
 
 [node name="Ship" type="Area2D"]
 script = ExtResource("1_41bhc")
+metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.8, 0.8)
@@ -108,4 +109,3 @@ shape = SubResource("RectangleShape2D_41bhc")
 
 [node name="MovementComponent" parent="." instance=ExtResource("6_07yvg")]
 patrol = true
-patrol_radius = 80.0

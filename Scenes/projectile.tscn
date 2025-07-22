@@ -6,6 +6,7 @@
 
 [node name="Projectile" type="Area2D"]
 script = ExtResource("1_f8cdk")
+metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 

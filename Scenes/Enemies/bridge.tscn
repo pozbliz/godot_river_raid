@@ -5,10 +5,11 @@
 [ext_resource type="PackedScene" uid="uid://8h713dbxq70w" path="res://Components/hitbox_component.tscn" id="2_bbw3o"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n0hkv"]
-size = Vector2(40, 80)
+size = Vector2(36, 200)
 
 [node name="Bridge" type="Area2D"]
 script = ExtResource("1_bbw3o")
+metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 
@@ -19,9 +20,10 @@ MAX_HEALTH = 3.0
 health_component = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(22, 100)
 shape = SubResource("RectangleShape2D_n0hkv")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 offset_right = 40.0
-offset_bottom = 80.0
+offset_bottom = 200.0
 color = Color(0.154784, 0.0941047, 0.00306704, 1)
