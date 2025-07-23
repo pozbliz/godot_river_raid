@@ -17,19 +17,6 @@ func _ready() -> void:
 func _process(delta):
 	pass
 		
-func create_first_segment():
-	# First segment will be straight
-	var start_point_top = Vector2(0, (screen_size.y / 2) - (DEFAULT_RIVER_WIDTH / 2))
-	var start_point_bottom = Vector2(0, (screen_size.y / 2) + (DEFAULT_RIVER_WIDTH / 2))
-	
-	var end_point_top = Vector2(screen_size.x, start_point_top.y)
-	var end_point_bottom = Vector2(screen_size.x, start_point_bottom.y)
-	
-	create_top_bank(start_point_top, end_point_top)
-	create_bottom_bank(start_point_bottom, end_point_bottom)
-	create_river(start_point_top, end_point_top, start_point_bottom, end_point_bottom)
-	
-	return [end_point_top, end_point_bottom]
 	
 func create_top_bank(start_point: Vector2, end_point: Vector2) -> void:
 	var top_bank = Polygon2D.new()

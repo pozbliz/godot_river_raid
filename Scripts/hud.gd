@@ -18,10 +18,10 @@ func show_game_over():
 	await $MessageTimer.timeout
 	
 func update_score(score):
-	$ScoreLabel.text = str(score)
+	$MarginContainer/HBoxContainer/Left/ScoreLabel.text = str(score)
 	
 func update_highscore(score):
-	$HighscoreLabel.text = str(score)
+	$MarginContainer/HBoxContainer/Right/HighscoreLabel.text = str(score)
 	
 func _on_message_timer_timeout():
 	$Message.hide()

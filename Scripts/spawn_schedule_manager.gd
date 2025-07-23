@@ -7,7 +7,7 @@ var schedule = {
 	"ship": { "interval": 4.0, "elapsed": 0.0 },
 	"helicopter": { "interval": 6.0, "elapsed": 0.0 },
 	"jet": { "interval": 8.0, "elapsed": 0.0 },
-	"bridge": { "interval": 20.0, "elapsed": 0.0}
+	"bridge": { "interval": 30.0, "elapsed": 0.0}
 }
 
 func _init():

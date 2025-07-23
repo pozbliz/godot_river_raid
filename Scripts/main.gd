@@ -32,6 +32,8 @@ var last_end_top: Vector2
 var last_end_bottom: Vector2
 var segments: Array = []
 var segment_count: int = 0
+var segment_score: int = 0
+var segment_highscore: int = 0
 var died = false
 
 
@@ -57,6 +59,10 @@ func _ready() -> void:
 	$SpawnScheduleManager.spawn_requested.connect(_on_spawn_schedule_manager_spawn_requested)
 	$Player.player_died.connect(_on_player_died)
 	
+	# Ensure first segment spawns on x = 0
+	last_end_top = Vector2(-screen_size.x, screen_size.y / 2 - 150)
+	last_end_bottom = Vector2(-screen_size.x, screen_size.y / 2 + 150)
+	
 	new_game()
 
 func _unhandled_input(event):
@@ -75,20 +81,22 @@ func _process(delta: float) -> void:
 		delete_segment()
 	
 func new_game():
-	var segment = create_segment()
-	last_end_points = segment.create_first_segment()
-	segment.global_position = Vector2.ZERO
-	last_end_top = last_end_points[0]
-	last_end_bottom = last_end_points[1]
+	generate_segments()
 	$Player.reset_position($PlayerStartPosition.position)
 	$Player.show()
 	$HUD.show()
 	died = false
+	segment_score = 0
+	segment_highscore = 0
+	$HUD.update_score(segment_score)
+	$HUD.update_highscore(segment_highscore)
 	
 func _on_player_died():
 	if died:
 		return
 	died = true
+	$Player.hide()
+	await $HUD.show_game_over()
 	get_tree().change_scene_to_packed(main_menu_scene)
 	
 func spawn_fuel_pickup():
@@ -103,6 +111,9 @@ func spawn_enemy(type: String):
 	var enemy = enemy_scenes[type].instantiate()
 	$WorldRoot.add_child(enemy)
 	enemy.add_to_group("enemy")
+	if type == "bridge":
+		enemy.add_to_group("bridge")
+		enemy.checkpoint_reached.connect(_on_checkpoint_reached)
 	var global_position = get_enemy_spawn_location(type)
 	enemy.position = $WorldRoot.to_local(global_position)
 	
@@ -134,11 +145,6 @@ func generate_segments():
 	new_segment.create_bottom_bank(last_end_bottom, new_bottom)
 	new_segment.create_river(last_end_top, new_top, last_end_bottom, new_bottom)
 
-	#print("last_end_top: ", last_end_top)
-	#print("last_end_bottom: ", last_end_bottom)
-	#print("new_top: ", new_top)
-	#print("new_bottom: ", new_bottom)
-
 	last_end_top = new_top
 	last_end_bottom = new_bottom
 	
@@ -147,7 +153,7 @@ func create_segment():
 	$WorldRoot.add_child(segment)
 	segment_count += 1
 	segments.append([segment, segment_count])
-	#print("created segment: ", segment_count)
+
 	return segment
 	
 func delete_segment():
@@ -156,4 +162,11 @@ func delete_segment():
 	if segment_node.global_position.x < segment_index * -screen_size.x:
 		var segment_to_delete = segments.pop_front()
 		segment_to_delete[0].queue_free()
-		#print("deleted segment: ", segment_index)
+		segment_score += 1
+		$HUD.update_score(segment_score)
+		if segment_score > segment_highscore:
+			segment_highscore = segment_score
+			$HUD.update_highscore(segment_highscore)
+		
+func _on_checkpoint_reached():
+	$HUD.show_message("Checkpoint Reached! Level: %d" % segment_score)

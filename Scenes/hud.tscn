@@ -4,6 +4,11 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e0onf"]
 bg_color = Color(0.265257, 0.0229181, 0.0722179, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fccik"]
 bg_color = Color(0.723629, 0.159178, 0.150378, 1)
@@ -15,6 +20,7 @@ script = ExtResource("1_e0onf")
 offset_left = 300.0
 offset_right = 350.0
 offset_bottom = 23.0
+theme_override_constants/outline_size = 8
 text = "Fuel"
 
 [node name="FuelBar" type="ProgressBar" parent="."]
@@ -28,8 +34,68 @@ step = 1.0
 value = 100.0
 
 [node name="Message" type="Label" parent="."]
-offset_right = 40.0
-offset_bottom = 23.0
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 50
+text = "Test"
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Left" type="HBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+
+[node name="ScoreText" type="Label" parent="MarginContainer/HBoxContainer/Left"]
+layout_mode = 2
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 30
+text = "Score"
+
+[node name="ScoreLabel" type="Label" parent="MarginContainer/HBoxContainer/Left"]
+layout_mode = 2
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 30
+text = "0"
+
+[node name="Right" type="BoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+
+[node name="HighscoreText" type="Label" parent="MarginContainer/HBoxContainer/Right"]
+layout_mode = 2
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 30
+text = "Highscore"
+horizontal_alignment = 1
+
+[node name="HighscoreLabel" type="Label" parent="MarginContainer/HBoxContainer/Right"]
+layout_mode = 2
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 30
+text = "0"
+horizontal_alignment = 2
 
 [node name="MessageTimer" type="Timer" parent="."]
 wait_time = 2.0
