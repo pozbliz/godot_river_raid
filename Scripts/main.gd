@@ -75,7 +75,7 @@ func toggle_pause():
 	$PauseMenu.visible = is_paused
 
 func _process(delta: float) -> void:
-	if len(segments) < 10:
+	if len(segments) < 100:
 		generate_segments()
 	else:
 		delete_segment()
@@ -87,9 +87,7 @@ func new_game():
 	$HUD.show()
 	died = false
 	segment_score = 0
-	segment_highscore = 0
 	$HUD.update_score(segment_score)
-	$HUD.update_highscore(segment_highscore)
 	
 func _on_player_died():
 	if died:

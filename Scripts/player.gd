@@ -46,6 +46,9 @@ func _process(delta):
 	if Input.is_action_just_pressed("shoot") and time_since_last_shot >= SHOT_COOLDOWN:
 		shoot()
 		time_since_last_shot = 0.0
+		
+	if current_fuel <= 0:
+		player_died.emit()
 	
 func shoot():
 	$ShootComponent.shoot()

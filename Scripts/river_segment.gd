@@ -104,10 +104,13 @@ func generate_new_top_endpoint(previous_end_top: Vector2) -> Vector2:
 	var y_movement = screen_size.x * tan(angle_radians_top)
 	
 	end_point_top.x = start_point_top.x + screen_size.x
-	# Prevent from moving too close to the screen edge
-	end_point_top.y = max(MIN_DISTANCE_FROM_EDGE, start_point_top.y + y_movement)
-	# Prevent from making river too narrow
-	end_point_top.y = min(end_point_top.y, (screen_size.y / 2) - (MIN_RIVER_WIDTH / 2))
+	end_point_top.y = start_point_top.y + y_movement
+	# Clamp to screen bounds and prevent river from being too narrow
+	end_point_top.y = clamp(
+		end_point_top.y,
+		MIN_DISTANCE_FROM_EDGE,
+		(screen_size.y / 2) - (MIN_RIVER_WIDTH / 2)
+	)
 	
 	return end_point_top
 	
@@ -120,9 +123,13 @@ func generate_new_bottom_endpoint(previous_end_bottom: Vector2) -> Vector2:
 	var y_movement = screen_size.x * tan(angle_radians_bottom)
 	
 	end_point_bottom.x = start_point_bottom.x + screen_size.x
-	# Prevent from moving too close to the screen edge 
-	end_point_bottom.y = min(MIN_DISTANCE_FROM_EDGE, start_point_bottom.y + y_movement)
-	# Prevent from making river too narrow
-	end_point_bottom.y = max(end_point_bottom.y, (screen_size.y / 2) + (MIN_RIVER_WIDTH / 2))
+	end_point_bottom.y = start_point_bottom.y + y_movement
+	
+	# Clamp to screen bounds and prevent river from being too narrow
+	end_point_bottom.y = clamp(
+		end_point_bottom.y,
+		(screen_size.y / 2) + (MIN_RIVER_WIDTH / 2),
+		screen_size.y - MIN_DISTANCE_FROM_EDGE
+	)
 	
 	return end_point_bottom
