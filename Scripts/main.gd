@@ -135,7 +135,7 @@ func _on_spawn_schedule_manager_spawn_requested(type: String):
 	
 func generate_segments():
 	var new_segment = create_segment()
-	new_segment.global_position = Vector2(screen_size.x, 0)
+	new_segment.position = Vector2(screen_size.x, 0)
 	var new_top = new_segment.generate_new_top_endpoint(last_end_top)
 	var new_bottom = new_segment.generate_new_bottom_endpoint(last_end_bottom)
 
